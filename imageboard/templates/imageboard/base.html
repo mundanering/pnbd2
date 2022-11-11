@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Based</title>
+</head>
+<body>
+    <!-- Pasek nawigacyjny (nazwa strony, nawigacja do ew. podstron, informacje o użytkowniku) -->
+    <div class="navbar">
+        {% block navbar %}
+        {% endblock %}
+    </div>
+    <!-- Blok paska bocznego (np. wyszukiwanie, filtrowanie, sortowanie) -->
+    <div class="sidebar">
+        {% block sidebar %}
+        {% endblock %}
+    </div>
+    <!-- Blok głównej zawartości (np. lista postów) -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
