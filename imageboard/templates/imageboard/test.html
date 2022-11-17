@@ -1,11 +1,14 @@
  <!-- przykładowa strona do testów, proszę nie wykonywać tu produkcji -->
 {% include "imageboard/base.html" %}
 {% block content %}
-    test
-    {% if test %}
-        {{ test }}
-    {% endif %}
     {% if image_link %}
         <img src="{{ image_link }}" alt="Zdjęcie posta">
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url "logout" %}">Wyloguj się</a>
+    {% else %}
+        <a href="{% url "login" %}">Zaloguj się</a>
+        <br />
+        <a href="{% url "register" %}">Zarejestruj się</a>
     {% endif %}
 {% endblock %}
