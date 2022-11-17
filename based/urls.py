@@ -18,9 +18,11 @@ from django.urls import path
 from django.urls import include
 from imageboard import urls as imgboard_urls
 from user import urls as user_urls
+from user import views as user_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(imgboard_urls.urlpatterns)),
     path("", include(user_urls.urlpatterns)),
+    path("register", user_views.register, name="register"),
 ]
