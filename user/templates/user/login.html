@@ -4,16 +4,16 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset>
-                <legend>Dołącz już dziś!</legend>
+                <legend>Zaloguj się</legend>
                 {{form.as_p}}
             </fieldset>
             <div>
-                <button type="submit">Zarejestruj się</button>
+                <button type="submit">Zaloguj się</button>
             </div>
         </form>
         <div>
             <small>
-                Masz już konto? <a href="{% url "login" %}">Zaloguj się</a>
+                Nie masz jeszcze konta? <a href="{% url "register" %}">Zarejestruj się</a>
             </small>
         </div>
     </div>
