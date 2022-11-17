@@ -1,0 +1,11 @@
+ <!-- przykładowa strona do testów, proszę nie wykonywać tu produkcji -->
+{% include "imageboard/base.html" %}
+{% block contents %}
+    test
+    {% if test %}
+        {{ test }}
+    {% endif %}
+    {% if image_link %}
+        <img src="{{ image_link }}" alt="Zdjęcie posta">
+    {% endif %}
+{% endblock %}
