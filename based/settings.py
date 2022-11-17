@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "imageboard"
+    "imageboard",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,8 @@ WSGI_APPLICATION = "based.wsgi.application"
 
 DATABASES = {
     "default": {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
         "ENGINE": "django.db.backends.mysql",
         "NAME": "based",
         "USER": "root",
@@ -86,8 +89,6 @@ DATABASES = {
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
         },
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
