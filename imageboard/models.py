@@ -7,3 +7,4 @@ class Post(models.Model):
     image_link = models.URLField(max_length=50)
     date_posted = models.DateTimeField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
