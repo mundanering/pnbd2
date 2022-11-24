@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import local_settings as local
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-os6f3%g($*xz!b^f%83j0g$=mfy=o4fvtevnhpt%hsreyif*j+"
+SECRET_KEY = local.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = local.DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -74,19 +75,7 @@ WSGI_APPLICATION = "based.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "server112950_bazydanychA",
-        "USER": "server112950_bazydanychA",
-        "PASSWORD": "bazy_danychA",
-        "HOST": "mariadb105.server112950.nazwa.pl",
-        "PORT": "3306",
-        "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
-        },
-    }
+    "default": local.DATABASE_CONFIG
 }
 
 # Password validation
