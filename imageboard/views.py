@@ -3,7 +3,41 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Post
+from .forms import PostForm
+from .forms import PostFormAdmin
 
+
+def add_post(request):
+	form= PostForm(request.POST or None)
+
+
+def add_event(request):
+    submitted = False
+    if request.method == "POST":
+        if request.user.is_superuser:
+            form = PostFormAdmin(request.POST)
+            if form.is_valid():
+                form.save()
+                return test()
+        else:
+            form = PostForm(request.POST)
+            if form.is_valid():
+                # form.save()
+                event = form.save(commit=False)
+                event.manager = request.user  # logged in user
+                event.save()
+                return test()
+    else:
+        # Just Going To The Page, Not Submitting
+        if request.user.is_superuser:
+            form = PostFormAdmin
+        else:
+            form = PostForm
+
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'imageboard/add_post.html', {'form': form, 'submitted': submitted})
 
 def test(request):
     """Render the template."""
