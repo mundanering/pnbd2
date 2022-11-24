@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends "imageboard/base.html" %}
-
 {% block content %}
-    <center>
-        <h1>Hello {{ name }}! Posts For {{ month }} {{ year }}</h1>
-
-
-    </center>
-    <h3>posts This Month...</h3>
-
+    {% if user.is_authenticated %}
+        <center>
+            <h3>Hello {{ name }}! Posts For {{ month }} {{ year }}</h3>
+        </center>
+    {% endif %}
     {% if post_list %}
         {% for post in post_list %}
             <div class="card">
@@ -19,46 +16,55 @@
                 <div class="card-body">
                     <h5 class="card-title">Posts: {{ post.title }}</h5>
                     <p class="card-text">
-                    <ul>
-                        <li>Title: {{ post.title }} Date: {{ post.date_posted }}</li>
-                        {% if post.image_link %}
-                            <img src="{{ post.image_link }}" alt="Zdjęcie posta">
-                        {% endif %}
-                        <li>Author: {{ post.author }}</li>
-                        <li>Contents: {{ contents.description }}</li>
-                        <li>Likes: <br/>
-
-                        </li>
-                    </ul>
-
-
-
-
+                        <ul>
+                            <a>
+                                <i class="bi bi-calendar-check"></i>
+                                {{ post.date_posted }}
+                            </a>
+                            <br/>
+                            <a>
+                                <i class="bi bi-person-circle"></i>
+                                {{ post.author }}
+                            </a>
+                            <br/>
+                            <a>
+                                <i class="bi bi-blockquote-left"></i>
+                                {{ post.title }}
+                            </a>
+                            <br/>
+                            {% if post.image_link %}
+                                <img src="{{ post.image_link }}" alt="Zdjęcie posta">
+                            {% endif %}
+                            <br/>
+                            <a>
+                                <i class="bi bi-file-text"></i>
+                                {{ contents.description }}
+                            </a>
+                            <br/>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-success">+</button>
+                                <button type="button" class="btn btn-danger">-</button>
+                            </div>
+                        </ul>
                     </p>
                 </div>
                 {% if user.is_authenticated %}
                     {% if user == post.author %}
                         <div class="card-footer text-muted">
-
                             <a href="{% url 'update-posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update posts</a>
-
                             <a href="{% url 'delete-posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete posts</a>
-
                         </div>
                     {% endif %}
                 {% endif %}
             </div>
             <br/>
         {% endfor %}
-
     {% else %}
         Sorry...There are no posts this month...
     {% endif %}
-
     <center>
         <br/><br/><br/><br/>
-        Copyright (c) {{ current_year }}
-
+        Copyright &copy {{ current_year }}
     </center>
 {% endblock %}
 </html>
