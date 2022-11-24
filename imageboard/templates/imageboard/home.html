@@ -4,7 +4,7 @@
 
 {% block content %}
     <center>
-        <h1>Hello {{ name }}! Posts For {{ month }} {{ year }}</h1>
+        <h1>Witaj {{ user.username }}! Posts For {{ month }} {{ year }}</h1>
 
 
     </center>
@@ -14,10 +14,10 @@
         {% for post in post_list %}
             <div class="card">
                 <div class="card-header">
-                    {{ post }}
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    by {{ post.author }}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Posts: {{ post.title }}</h5>
                     <p class="card-text">
                     <ul>
                         <li>Title: {{ post.title }} Date: {{ post.date_posted }}</li>
@@ -26,24 +26,34 @@
                         {% endif %}
                         <li>Author: {{ post.author }}</li>
                         <li>Contents: {{ contents.description }}</li>
-                        <li>Likes: <br/>
-
+                        <li>Likes: {{ post.likes.count }}</li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="post_id" value="{{ post.id }}" />
+                                <button name="like" class="button" value="+"
+                                        style="color: darkgreen">+
+                                </button>
+                                <button name="like" class="button" value="-"
+                                        style="color: darkred">-
+                                </button>
+                            </form>
                         </li>
+                        {% endif %}
                     </ul>
-
-
-
-
                     </p>
                 </div>
                 {% if user.is_authenticated %}
                     {% if user == post.author %}
                         <div class="card-footer text-muted">
+                            <!--
+                            <a href="{ url 'update-posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update
+                                posts</a>
 
-                            <a href="{% url 'update-posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update posts</a>
-
-                            <a href="{% url 'delete-posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete posts</a>
-
+                            <a href="{ url 'delete-posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete
+                                posts</a>
+                            -->
                         </div>
                     {% endif %}
                 {% endif %}
