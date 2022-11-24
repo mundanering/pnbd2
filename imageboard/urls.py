@@ -19,5 +19,7 @@ from . import views
 urlpatterns = [
     path("test", views.test, name="test"),
     path("home", views.home, name="home"),
+    path('add_post', views.add_event, name='add-post'),
+
 ]
 

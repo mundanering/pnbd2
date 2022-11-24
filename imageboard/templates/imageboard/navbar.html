@@ -13,13 +13,13 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Test0
+            Sortuj Według
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'test' %}">Test</a></li>
+            <li><a class="dropdown-item" href="{% url 'test' %}">Najlepsze</a></li>
             {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'test' %}">Test</a></li>
-            <li><a class="dropdown-item" href="{% url 'test' %}">Test</a></li>
+            <li><a class="dropdown-item" href="{% url 'test' %}">Najnowsze</a></li>
+            <li><a class="dropdown-item" href="{% url 'test' %}">Najstarsze</a></li>
             {% endif %}
 
 
@@ -27,62 +27,55 @@
         </li>
 
 
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Test1
+
+      </ul>
+
+        {% csrf_token %}
+
+        <input class="form-control me-2" type="Szukaj" placeholder="Szukaj" aria-label="Szukaj" name="searched">
+        <button class="btn btn-outline-secondary" type="submit">Szukaj</button>
+
+     <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Użytkownik
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
             {% if user.is_authenticated %}
-
+                <li><a class="dropdown-item" href="{% url 'test' %}">Mój profil</a></li>
+                <li><a class="dropdown-item" href="{% url 'test' %}">Moje posty</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Wyloguj</a></li>
             {% endif %}
 
-          </ul>
-        </li>
-
-
-
-
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Test2
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-
 
           </ul>
         </li>
 
 
-
-
-      {% if user.is_authenticated %}
+  {% if user.is_authenticated %}
       {% if user.is_superuser %}
           <li class="nav-item">
 
         </li>
       {%endif %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-link" href="{% url 'test' %}"><b><center>DODAJ POST</center></b></a>
         </li>
-      {% else %}
+
+
+    {% else %}
+          <li class="nav-item">
+
+        </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Register</a>
+          <a class="nav-link" href="{% url 'login' %}">Zaloguj</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-link" href="{% url 'register' %}">Zarejestruj</a>
         </li>
-      {% endif %}
 
-      </ul>
+  {% endif %}
 
-        {% csrf_token %}
 
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
-        <button class="btn btn-outline-secondary" type="submit">Search memes</button>
       </form>
     </div>
   </div>
