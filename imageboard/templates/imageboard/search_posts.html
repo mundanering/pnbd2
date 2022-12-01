@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "imageboard/base.html" %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header">
+    {% if searched %}
+		Wyszukałeś: {{ searched }}
+	{% else %}
+		Wyszukiwanie postów
+	{% endif %}
+  </div>
+  <div class="card-body">
+
+<form method=POST action="{% url 'search_posts' %}">
+        {% csrf_token %}
+
+        <input class="form-control me-2" type="search" placeholder="Wpisz czego szukasz" aria-label="Search" name="searched">
+        <br/>
+        <button class="btn btn-outline-secondary" type="submit">Szukaj</button>
+      </form>
+
+</div></div>
+
+
+		<br/>
+		{% for post in posts %}
+			<div class="card">
+  <div class="card-header">
+    {{ post }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Venue: {{ post.venue }}</h5>
+    <p class="card-text">
+    	<ul>
+<li>Date: {{ post.post_date }}</li>
+
+<li>Venue Website: {{ post.venue.web }}</li>
+<li>Manager: {{ post.manager }}</li>
+<li>Description: {{ post.description }}</li>
+	<li>Attendees:<br/>
+	{% for user in post.attendees.all %}
+{{ user }}<br/>
+	{% endfor %}
+	</li>
+	</ul>
+
+
+
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+    {% if user == post.manager %}
+      <div class="card-footer text-muted">
+
+        <a href="{% url 'update-Posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update Post</a>
+
+        <a href="{% url 'delete-Posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete Post</a>
+
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+
+	<br/><br/>
+		{% endfor %}
+
+
+{% endblock %}
+</html>

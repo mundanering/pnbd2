@@ -49,3 +49,18 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
                       "time": time,
                       "post_list": post_list,
                   })
+
+
+def search_posts(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        posts = Post.objects.filter(description__contains=searched)
+
+        return render(request,
+        'imageboard/search_posts.html',
+        {'searched':searched,
+        'posts':posts})
+    else:
+        return render(request,
+        'imageboard/search_posts.html',
+        {})
