@@ -24,6 +24,7 @@
       <sourceFolder url="file://$MODULE_DIR$/imageboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/user" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (pnbd2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -3,10 +3,12 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Post
+from .models import Like
+
 
 
 def test(request):
-    """Render the test template."""
+    """Render the template."""
     # Tutaj dajemy zmienne, z którego template może korzystać
     content = {
         "test": "hash",
@@ -16,8 +18,27 @@ def test(request):
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-    """Render the home page."""
-    name = "kill all biggers"
+    if request.method == "POST":
+        current_user = request.user
+        if current_user.is_authenticated:
+            data = request.POST
+            post_id = data.get("post_id")
+            post = Post.objects.filter(id=post_id).first()
+            action = data.get("like")
+            is_negative = action == "-"
+            like = Like.objects.filter(user=current_user, post=post).first()
+            print(like)
+            if like is not None:
+                if like.is_negative == is_negative:
+                    like.delete()
+                else:
+                    like.is_negative = is_negative
+                    like.save()
+            else:
+                like = Like(user=current_user, post=post, is_negative=is_negative)
+                like.save()
+
+
     month = month.capitalize()
     month_number = list(calendar.month_name).index(month)
     month_number = int(month_number)
@@ -40,7 +61,6 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     time = now.strftime('%I:%M %p')
     return render(request,
                   'imageboard/home.html', {
-                      "name": name,
                       "year": year,
                       "month": month,
                       "month_number": month_number,
