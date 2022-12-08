@@ -6,7 +6,6 @@ from .models import Post
 from .models import Like
 
 
-
 def test(request):
     """Render the template."""
     # Tutaj dajemy zmienne, z którego template może korzystać
@@ -37,7 +36,6 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
             else:
                 like = Like(user=current_user, post=post, is_negative=is_negative)
                 like.save()
-
 
     month = month.capitalize()
     month_number = list(calendar.month_name).index(month)

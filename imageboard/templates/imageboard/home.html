@@ -33,7 +33,7 @@
                             </a>
                             <br/>
                             {% if post.image_link %}
-                                <img src="{{ post.image_link }}" alt="Zdjęcie posta">
+                                <img src="{{ post.image_link }}" alt="Zdjęcie posta" style="width:100%;max-width:500px;height:auto;">
                             {% endif %}
                             <br/>
                             <a>
@@ -42,8 +42,16 @@
                             </a>
                             <br/>
                             <div class="btn-group btn-group-sm" role="group">
-                                <button type="button" class="btn btn-success">+</button>
-                                <button type="button" class="btn btn-danger">-</button>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}" />
+                                    <button name="like" class="btn btn-success" value="+">
+                                        + {{ post.likes.count }}
+                                    </button>
+                                    <button name="like" class="btn btn-danger" value="-">
+                                        - 0
+                                    </button>
+                                </form>
                             </div>
                         </ul>
                     </p>
@@ -51,8 +59,10 @@
                 {% if user.is_authenticated %}
                     {% if user == post.author %}
                         <div class="card-footer text-muted">
-                            <a href="{% url 'update-posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update posts</a>
-                            <a href="{% url 'delete-posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete posts</a>
+                            <!--
+                            <a href="{ url 'update-posts' post.id %}" class="btn btn-outline-secondary btn-sm">Update posts</a>
+                            <a href="{ url 'delete-posts' post.id %}" class="btn btn-outline-danger btn-sm">Delete posts</a>
+                            -->
                         </div>
                     {% endif %}
                 {% endif %}

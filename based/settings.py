@@ -78,6 +78,24 @@ DATABASES = {
     "default": local.DATABASE_CONFIG
 }
 
+# jakby co to usuncie docstringa i obejmijcie nim tą baze wyżej żeby używać tej online a nie lokalnej
+"""
+DATABASES = {
+    "default": {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "server112950_bazydanychA",
+        "USER": "server112950_bazydanychA",
+        "PASSWORD": "bazy_danychA",
+        "HOST": "mariadb105.server112950.nazwa.pl",
+        "PORT": "3306",
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
+    }
+}
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -118,4 +136,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = "test"
+LOGIN_REDIRECT_URL = "home"
