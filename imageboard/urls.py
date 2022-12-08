@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from .views import addpostform
 
 urlpatterns = [
     path("test", views.test, name="test"),
     path("", views.home, name="home"),
+    path("addpost/", addpostform.as_view(), name="addpost"),
 ]
 
