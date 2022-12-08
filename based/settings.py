@@ -73,12 +73,12 @@ WSGI_APPLICATION = "based.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": local.DATABASE_CONFIG
-}
+#DATABASES = {
+#    "default": local.DATABASE_CONFIG
+#}
 
 # jakby co to usuncie docstringa i obejmijcie nim tą baze wyżej żeby używać tej online a nie lokalnej
-"""
+
 DATABASES = {
     "default": {
         # 'ENGINE': 'django.db.backends.sqlite3',
@@ -94,7 +94,7 @@ DATABASES = {
         },
     }
 }
-"""
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

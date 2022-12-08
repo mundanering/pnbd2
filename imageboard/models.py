@@ -4,6 +4,8 @@ from django.utils.timezone import now
 from django.urls import reverse
 
 
+
+
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=30)
@@ -21,3 +23,7 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_negative = models.BooleanField(default=False)
+class Comment(models.Model):
+    body = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=now)

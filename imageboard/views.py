@@ -3,6 +3,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Post
+from .models import Comment
 from .models import Like
 from django.views.generic import CreateView
 
@@ -78,3 +79,24 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
                       "time": time,
                       "post_list": post_list,
                   })
+def submit_comment(request, post_id):
+    if request.method == 'POST':
+        # Validate the form data
+        body = request.POST['body']
+        if body:
+            # Create a new Comment object with the form data
+            comment = Comment(body=body, author=request.user, post_id=post_id)
+            comment.save()
+            # Redirect to the post page
+            return redirect('post_view', post_id=post_id)
+        else:
+            # Handle invalid form data
+            pass
+    else:
+        # Handle non-POST requests
+        pass
+
+def post_view(request, post_id):
+    post = Post.objects.get(id=post_id)
+    comments = Comment.objects.filter(post_id=post_id).order_by('timestamp')
+    return render(request, 'post.html', {'post': post, 'comments': comments})

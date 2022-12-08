@@ -51,6 +51,21 @@
                                     <button name="like" class="btn btn-danger" value="-">
                                         - 0
                                     </button>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Comments:</h5>
+                                        <p class="card-text">
+                                        <ul>
+                                            {% for comment in post.comments %}
+                                                <li>{{ comment.content }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        </p>
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <textarea name="comment" placeholder="Enter your comment here"></textarea>
+                                            <button type="submit">Submit comment</button>
+                                        </form>
+                                    </div>
                                 </form>
                             </div>
                         </ul>
