@@ -2,3 +2,4 @@ local_settings.py
 *.sqlite
 */migrations/*
 !*/migrations/__init__.py
+/media/*
