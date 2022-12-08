@@ -4,6 +4,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Post
 from .models import Like
+from django.views.generic import CreateView
 
 
 def test(request):
@@ -14,6 +15,16 @@ def test(request):
         "image_link": "https://asset-eu.unileversolutions.com/content/dam/unilever/lipton_international/poland/pack_design/5997264159313-1588506-png.png.ulenscale.490x490.png"
     }
     return render(request, "imageboard/test.html", content)
+
+
+class addpostform(CreateView):
+    template_name = "imageboard/addpost.html"
+    model = Post
+    fields = ("title", "contents", "image_link")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):

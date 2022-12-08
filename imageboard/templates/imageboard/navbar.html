@@ -29,13 +29,6 @@
             {% endif %}
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Test2
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          </ul>
-        </li>
         {% if user.is_authenticated %}
           {% if user.is_superuser %}
             <li class="nav-item">
@@ -43,6 +36,9 @@
           {%endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Wylogowanie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'addpost' %}">Dodajpost</a>
           </li>
         {% else %}
           <li class="nav-item">
