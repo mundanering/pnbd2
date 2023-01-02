@@ -44,12 +44,17 @@
                             <div class="btn-group btn-group-sm" role="group">
                                 <form method="POST">
                                     {% csrf_token %}
-                                    <input type="hidden" name="post_id" value="{{ post.id }}" />
-                                    <button name="like" class="btn btn-success" value="+">
+                                    <input type="hidden" name="action_form_type" value="like"/>
+                                    <input type="hidden" name="post_id" value="{{ post.id }}"/>
+                                    <button name="like"
+                                            class="btn btn-success {% if user in post.likes.all %}fw-bold{% endif %}"
+                                            value="+">
                                         + {{ post.likes.count }}
                                     </button>
-                                    <button name="like" class="btn btn-danger" value="-">
-                                        - 0
+                                    <button name="like"
+                                            class="btn btn-danger {% if user in post.dislikes.all %}fw-bold{% endif %}"
+                                            value="-">
+                                        - {{ post.dislikes.count }}
                                     </button>
                                 </form>
                             </div>

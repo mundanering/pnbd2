@@ -11,7 +11,8 @@ class Post(models.Model):
     image_link = models.ImageField(null=True, blank=True, upload_to="images/")
     date_posted = models.DateTimeField(default=now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
-    likes = models.ManyToManyField(User, blank=True, through="Like")
+    likes = models.ManyToManyField(User, blank=True, through="Like", related_name="post_likes")
+    dislikes = models.ManyToManyField(User, blank=True, through="Dislike", related_name="post_dislikes")
 
     def get_absolute_url(self):
         return reverse("home")
@@ -20,4 +21,8 @@ class Post(models.Model):
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_negative = models.BooleanField(default=False)
+
+
+class Dislike(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

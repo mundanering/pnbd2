@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Post
-from .models import Like
+from .utility import handle_likes
+from .models import Post, Like, Dislike
 from django.views.generic import CreateView
 
 
@@ -30,23 +30,12 @@ class addpostform(CreateView):
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     if request.method == "POST":
         current_user = request.user
+        data = request.POST
         if current_user.is_authenticated:
-            data = request.POST
-            post_id = data.get("post_id")
-            post = Post.objects.filter(id=post_id).first()
-            action = data.get("like")
-            is_negative = action == "-"
-            like = Like.objects.filter(user=current_user, post=post).first()
-            print(like)
-            if like is not None:
-                if like.is_negative == is_negative:
-                    like.delete()
-                else:
-                    like.is_negative = is_negative
-                    like.save()
-            else:
-                like = Like(user=current_user, post=post, is_negative=is_negative)
-                like.save()
+            if data.get("action_form_type") == "like":
+                handle_likes(current_user, data)
+
+        return redirect("home");
 
     month = month.capitalize()
     month_number = list(calendar.month_name).index(month)
